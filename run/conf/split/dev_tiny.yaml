@@ -1,0 +1,11 @@
+# Minimal development split - only 5 series total for fast iteration
+# Use this for testing setup and quick experiments
+
+train_series_ids:
+  - "038441c925bb"
+  - "0402a003dae9"
+  - "04f547b8017d"
+
+valid_series_ids:
+  - "05e1944c3818"
+  - "062cae666e2a"

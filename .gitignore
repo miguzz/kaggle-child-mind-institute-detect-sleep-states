@@ -162,3 +162,8 @@ cython_debug/
 data/
 processed_data/
 output/
+
+.claude/
+.vscode/
+venv_dev/
+requirements.txt

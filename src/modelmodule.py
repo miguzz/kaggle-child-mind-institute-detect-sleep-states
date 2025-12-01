@@ -68,7 +68,7 @@ class PLSleepModel(LightningModule):
             (
                 batch["key"],
                 output.labels.detach().cpu().numpy(),
-                output.preds.detach().cpu().numpy(),
+                output.preds.detach().cpu().float().numpy(),
                 output.loss.detach().item(),
             )
         )

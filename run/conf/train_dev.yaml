@@ -1,0 +1,68 @@
+# Development training configuration
+# This config is optimized for fast iteration and testing, not performance
+# Use this to verify your setup works before running full training
+
+# Override the default train.yaml settings
+defaults:
+  - train  # Inherit from train.yaml
+  - override /split: dev_tiny  # Use tiny dev split instead of fold_0
+  - _self_  # Apply overrides below
+
+# Experiment name
+exp_name: dev_test
+
+# Reduced duration for faster processing (2880 = 4 hours vs default 5760 = 8 hours)
+duration: 2880
+
+# More aggressive downsampling for speed (4x vs default 2x)
+downsample_rate: 4
+
+# Smaller batch size to reduce memory usage
+batch_size: 8
+
+# Trainer settings for quick validation
+trainer:
+  epochs: 2  # Just 2 epochs to verify everything works
+  accelerator: auto  # Use GPU if available, else CPU
+  use_amp: true
+  debug: false
+  gradient_clip_val: 1.0
+  accumulate_grad_batches: 1
+  monitor: val_loss
+  monitor_mode: min
+  check_val_every_n_epoch: 1  # Validate every epoch
+
+# Dataset settings
+dataset:
+  batch_size: 8
+  num_workers: 2  # Reduce workers to avoid memory issues
+  offset: 10
+  sigma: 10
+  bg_sampling_rate: 0.5
+
+# No augmentation for faster training in dev mode
+aug:
+  mixup_prob: 0.0
+  mixup_alpha: 0.4
+  cutmix_prob: 0.0
+  cutmix_alpha: 0.4
+
+# Post-processing
+pp:
+  score_th: 0.02
+  distance: 10
+
+# Features (same as default)
+features:
+  - "anglez"
+  - "enmo"
+  - "hour_sin"
+  - "hour_cos"
+
+# Optimizer
+optimizer:
+  lr: 0.0005
+
+# Scheduler
+scheduler:
+  num_warmup_steps: 0
